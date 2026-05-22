@@ -1,6 +1,6 @@
 from app.dao.base import BaseDAO
-from app.finance.models import Finance
+from app.finance.models import Transaction
 
 
-class FinanceDAO(BaseDAO):
-    model = Finance
+class TransactionDAO(BaseDAO):
+    model = Transaction

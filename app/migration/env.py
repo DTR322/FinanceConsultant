@@ -10,15 +10,18 @@ from os.path import dirname, abspath
 
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
-from app.database import DATABASE_URL, BASE
-from app.finance.models import Product
+from app.database import DATABASE_URL, Base
+from app.finance.models import Transaction, Category
+from app.goals.models import Goal
+from app.users.models import User
+from app.wallets.models import Wallet
 
 config = context.config
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = BASE.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

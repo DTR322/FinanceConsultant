@@ -5,15 +5,14 @@ from app.database import Base, int_pk, str_uniq  # используем твой
 class User(Base):
     """Пользователь системы"""
     id: Mapped[int_pk]
-
-    # email используем как логин, он должен быть уникальным и проиндексированным
     email: Mapped[str_uniq]
+    password: Mapped[str] = mapped_column(nullable=False)
 
-    # Хранится хэш пароля, а не сам пароль (безопасность!)
-    hashed_password: Mapped[str] = mapped_column(nullable=False)
+    is_demo_user: Mapped[bool] = mapped_column(default=True, server_default="true", nullable=False)
+    is_full_user: Mapped[bool] = mapped_column(default=False, server_default="false", nullable=False)
+    is_admin: Mapped[bool] = mapped_column(default=False, server_default="false", nullable=False)
 
-    # Можно добавить флаг активности или роль, если в будущем будет админка
-    is_active: Mapped[bool] = mapped_column(server_default="true")
+    extend_existing = True
 
-    # Здесь можно добавить relationship, если захочешь быстро
-    # подтягивать все данные юзера, но в DAO это лучше делать явно.
+    def __repr__(self):
+        return f"User(id={self.id}, email={self.email})"
